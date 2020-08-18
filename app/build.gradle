@@ -8,7 +8,7 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
@@ -27,6 +27,7 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:appcompat-v7:$rootProject.appcompat_v7"
+//    implementation "com.android.support:appcompat-v7:$rootProject.appcompat_v7"
+    implementation "androidx.appcompat:appcompat:$rootProject.androidXVersion"
     implementation project(':webview')
 }

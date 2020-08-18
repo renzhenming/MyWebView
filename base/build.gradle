@@ -9,7 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
@@ -26,5 +26,8 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:appcompat-v7:$rootProject.appcompat_v7"
+    implementation "androidx.appcompat:appcompat:$rootProject.androidXVersion"
+    api 'com.kingja.loadsir:loadsir:1.3.8'
+    implementation 'com.airbnb.android:lottie:2.8.0'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-7'
 }
