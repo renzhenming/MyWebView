@@ -7,6 +7,8 @@ import com.rzm.common.autoservice.IWebViewService;
 import com.rzm.webview.utils.Constants;
 import com.google.auto.service.AutoService;
 
+import androidx.fragment.app.Fragment;
+
 @AutoService({IWebViewService.class})
 public class WebViewServiceImpl implements IWebViewService {
     @Override
@@ -18,5 +20,18 @@ public class WebViewServiceImpl implements IWebViewService {
             intent.putExtra(Constants.IS_SHOW_ACTION_BAR, isShowActionBar);
             context.startActivity(intent);
         }
+    }
+
+    @Override
+    public Fragment getWebViewFragment(String url, boolean canNativeRefresh) {
+        return WebViewFragment.newInstance(url, canNativeRefresh);
+    }
+
+    @Override
+    public void startLocalHtml(Context context) {
+        Intent intent = new Intent(context, WebViewActivity.class);
+        intent.putExtra(Constants.TITLE, "本地Demo测试页");
+        intent.putExtra(Constants.URL, Constants.ANDROID_ASSET_URI + "demo.html");
+        context.startActivity(intent);
     }
 }

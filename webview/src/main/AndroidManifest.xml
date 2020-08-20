@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rzm.webview">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application>
         <activity android:name=".WebViewActivity"
+            android:process=":webview"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 

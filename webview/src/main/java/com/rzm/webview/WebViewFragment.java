@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +17,11 @@ import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
 import com.rzm.loadsir.ErrorCallback;
 import com.rzm.loadsir.LoadingCallback;
-import com.rzm.webview.chromeclient.MWebChromeClient;
-import com.rzm.webview.client.MWebViewCallBack;
-import com.rzm.webview.client.MWebViewClient;
 import com.rzm.webview.databinding.FragmentWebViewBinding;
 import com.rzm.webview.utils.Constants;
+import com.rzm.webview.webviewprocess.chromeclient.MWebChromeClient;
+import com.rzm.webview.webviewprocess.client.MWebViewCallBack;
+import com.rzm.webview.webviewprocess.client.MWebViewClient;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -62,10 +61,8 @@ public class WebViewFragment extends Fragment implements MWebViewCallBack, OnRef
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_web_view, container, false);
-        this.mBinding.webview.getSettings().setJavaScriptEnabled(true);
         this.mBinding.webview.loadUrl(mUrl);
-        this.mBinding.webview.setWebViewClient(new MWebViewClient(this));
-        this.mBinding.webview.setWebChromeClient(new MWebChromeClient(this));
+        this.mBinding.webview.registerCallBack(this);
         mLoadService = LoadSir.getDefault().register(this.mBinding.refreshLayout, (Callback.OnReloadListener) v -> {
             mLoadService.showCallback(LoadingCallback.class);
             this.mBinding.webview.reload();

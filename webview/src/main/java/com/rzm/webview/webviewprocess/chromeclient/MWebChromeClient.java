@@ -1,10 +1,11 @@
-package com.rzm.webview.chromeclient;
+package com.rzm.webview.webviewprocess.chromeclient;
 
+import android.webkit.ConsoleMessage;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 import com.rzm.utils.LogUtils;
-import com.rzm.webview.client.MWebViewCallBack;
+import com.rzm.webview.webviewprocess.client.MWebViewCallBack;
 
 public class MWebChromeClient extends WebChromeClient {
 
@@ -22,5 +23,14 @@ public class MWebChromeClient extends WebChromeClient {
         } else {
             LogUtils.d("callBack is null");
         }
+    }
+
+    /**
+     * 用来将H5代码的log信息打印到logcat
+     */
+    @Override
+    public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+        LogUtils.d(consoleMessage.message());
+        return super.onConsoleMessage(consoleMessage);
     }
 }

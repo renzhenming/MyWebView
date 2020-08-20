@@ -1,4 +1,4 @@
-package com.rzm.webview.client;
+package com.rzm.webview.webviewprocess.client;
 
 public interface MWebViewCallBack {
     void pageStarted(String url);

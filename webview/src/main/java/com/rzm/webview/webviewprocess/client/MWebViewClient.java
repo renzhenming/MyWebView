@@ -1,4 +1,4 @@
-package com.rzm.webview.client;
+package com.rzm.webview.webviewprocess.client;
 
 import android.graphics.Bitmap;
 import android.webkit.WebResourceError;
