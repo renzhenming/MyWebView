@@ -22,10 +22,16 @@
             renzhenmingjs.takeNativeAction("showToast", {message: "this is a message from html."});
         }
 
+        function openActivityA(){
+            console.log("openActivityA.");
+            renzhenmingjs.takeNativeAction("openPage", {target_class: "com.rzm.mywebview.MainProcessTestActivity"});
+        }
+
     </script>
     <script src="js/webview.js" charset="utf-8"></script>
 </head>
 <body style="height: 100%;">
 <div class="item" style="font-size: 20px; color: #ffffff" onclick="callAppToast()">调用: showToast</div>
+<div class="item" style="font-size: 20px; color: #ffffff" onclick="openActivityA()">打开MainProcessTestActivity</div>
 </body>
 </html>

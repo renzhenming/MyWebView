@@ -1,8 +1,8 @@
 package com.rzm.webview.bean;
 
-//import com.google.gson.JsonObject;
+import com.google.gson.JsonObject;
 
 public class JsParam {
     public String name;
-//    public JsonObject param;
+    public JsonObject param;
 }

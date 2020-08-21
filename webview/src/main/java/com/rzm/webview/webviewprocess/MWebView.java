@@ -2,14 +2,19 @@ package com.rzm.webview.webviewprocess;
 
 import android.content.Context;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
+
+import com.google.gson.Gson;
 import com.rzm.utils.LogUtils;
+import com.rzm.webview.bean.JsParam;
 import com.rzm.webview.webviewprocess.chromeclient.MWebChromeClient;
 import com.rzm.webview.webviewprocess.client.MWebViewCallBack;
 import com.rzm.webview.webviewprocess.client.MWebViewClient;
 import com.rzm.webview.webviewprocess.settings.MWebSetting;
+
 
 import androidx.annotation.RequiresApi;
 
@@ -37,6 +42,7 @@ public class MWebView extends WebView {
 
 
     private void init() {
+        WebViewProcessCommandDispatcher.getInstance().initAidlConnection();
         MWebSetting.getInstance().initSetting(this);
         addJavascriptInterface(this, "renzhenmingwebview");
     }
@@ -48,14 +54,13 @@ public class MWebView extends WebView {
 
     @JavascriptInterface
     public void takeNativeAction(final String jsParam) {
-        LogUtils.d("received h5 message" + jsParam);
-//        if(!TextUtils.isEmpty(jsParam)) {
-//            final JsParam jsParamObject = new Gson().fromJson(jsParam, JsParam.class);
-//            if(jsParamObject != null) {
-//                if("showToast".equalsIgnoreCase(jsParamObject.name)) {
-//                    Toast.makeText(getContext(), String.valueOf(new Gson().fromJson(jsParamObject.param, Map.class).get("message")), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        }
+        LogUtils.d("MWebView received h5 message" + jsParam);
+        if (!TextUtils.isEmpty(jsParam)) {
+            final JsParam jsParamObject = new Gson().fromJson(jsParam, JsParam.class);
+            if (jsParamObject != null) {
+                LogUtils.d("MWebView WebViewProcessCommandDispatcher executeCommand " + jsParamObject.name);
+                WebViewProcessCommandDispatcher.getInstance().executeCommand(jsParamObject.name, new Gson().toJson(jsParamObject.param), this);
+            }
+        }
     }
 }
