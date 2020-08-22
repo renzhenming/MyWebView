@@ -21,7 +21,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding{
+    dataBinding {
         enabled true
     }
 }
@@ -29,6 +29,9 @@ android {
 dependencies {
     implementation "androidx.appcompat:appcompat:$rootProject.androidXVersion"
     implementation project(':webview')
+    implementation project(':usercenter')
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     annotationProcessor rootProject.googleAutoServiceDependency
     implementation rootProject.googleAutoServiceDependency
 }
