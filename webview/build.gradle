@@ -34,7 +34,6 @@ android {
 }
 
 dependencies {
-//    implementation "com.android.support:appcompat-v7:$rootProject.appcompat_v7"
     implementation "androidx.appcompat:appcompat:$rootProject.androidXVersion"
     api project(':common')
     implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'

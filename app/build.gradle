@@ -27,7 +27,8 @@ android {
 }
 
 dependencies {
-//    implementation "com.android.support:appcompat-v7:$rootProject.appcompat_v7"
     implementation "androidx.appcompat:appcompat:$rootProject.androidXVersion"
     implementation project(':webview')
+    annotationProcessor rootProject.googleAutoServiceDependency
+    implementation rootProject.googleAutoServiceDependency
 }

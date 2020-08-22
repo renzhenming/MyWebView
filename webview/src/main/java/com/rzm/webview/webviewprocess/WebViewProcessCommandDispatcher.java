@@ -13,16 +13,18 @@ import com.rzm.webview.IWebViewProcessToMainProcessAidlInterface;
 import com.rzm.webview.mainprocess.MainProcessCommandService;
 
 public class WebViewProcessCommandDispatcher implements ServiceConnection {
-    private static WebViewProcessCommandDispatcher sInstance;
+    private static volatile WebViewProcessCommandDispatcher mInstance;
     private IWebViewProcessToMainProcessAidlInterface iWebviewProcessToMainProcessInterface;
 
     public static WebViewProcessCommandDispatcher getInstance() {
-        if (sInstance == null) {
+        if (mInstance == null) {
             synchronized (WebViewProcessCommandDispatcher.class) {
-                sInstance = new WebViewProcessCommandDispatcher();
+                if (mInstance == null) {
+                    mInstance = new WebViewProcessCommandDispatcher();
+                }
             }
         }
-        return sInstance;
+        return mInstance;
     }
 
     public void initAidlConnection() {

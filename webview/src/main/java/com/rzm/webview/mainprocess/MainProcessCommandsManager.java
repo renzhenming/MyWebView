@@ -1,45 +1,39 @@
 package com.rzm.webview.mainprocess;
-
-import android.content.ComponentName;
-import android.content.Intent;
-import android.text.TextUtils;
-
 import com.google.gson.Gson;
-import com.rzm.base.BaseApplication;
 import com.rzm.utils.LogUtils;
 import com.rzm.webview.IWebViewProcessToMainProcessAidlInterface;
-
+import com.rzm.webview.command.Command;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.ServiceLoader;
 
 public class MainProcessCommandsManager extends IWebViewProcessToMainProcessAidlInterface.Stub {
-    private static MainProcessCommandsManager sInstance;
+    private static volatile MainProcessCommandsManager mInstance;
+    private HashMap<String,Command> mCommands = new HashMap<>();
 
     public static MainProcessCommandsManager getInstance() {
-        if (sInstance == null) {
+        if (mInstance == null) {
             synchronized (MainProcessCommandsManager.class) {
-                sInstance = new MainProcessCommandsManager();
+                if (mInstance == null) {
+                    mInstance = new MainProcessCommandsManager();
+                }
             }
         }
-        return sInstance;
+        return mInstance;
     }
 
     private MainProcessCommandsManager() {
-
+        ServiceLoader<Command> loader = ServiceLoader.load(Command.class);
+        for (Command command : loader) {
+            if (!mCommands.containsKey(command.name())){
+                LogUtils.d("MainProcessCommandsManager find command class :" + command.name() );
+                mCommands.put(command.name(),command);
+            }
+        }
     }
 
     public void executeCommand(String commandName, Map params) {
-        if ("showToast".equalsIgnoreCase(commandName)) {
-            LogUtils.d("MainProcessCommandsManager begin commandName = " + commandName);
-        } else if ("openPage".equalsIgnoreCase(commandName)) {
-            LogUtils.d("MainProcessCommandsManager begin commandName = " + commandName);
-            String targetClass = String.valueOf(params.get("target_class"));
-            if (!TextUtils.isEmpty(targetClass)) {
-                Intent intent = new Intent();
-                intent.setComponent(new ComponentName(BaseApplication.mApplication, targetClass));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                BaseApplication.mApplication.startActivity(intent);
-            }
-        }
+        mCommands.get(commandName).execute(params);
     }
 
     @Override
