@@ -4,6 +4,21 @@ renzhenmingjs.os.isIOS = /iOS|iPhone|iPad|iPod/i.test(navigator.userAgent);
 renzhenmingjs.os.isAndroid = !renzhenmingjs.os.isIOS;
 renzhenmingjs.callbacks = {}
 
+renzhenmingjs.callback = function (callbackname, response) {
+   var callbackobject = renzhenmingjs.callbacks[callbackname];
+   console.log("xxxx"+callbackname);
+   if (callbackobject !== undefined){
+       if(callbackobject.callback != undefined){
+          console.log("xxxxxx"+response);
+           var ret = callbackobject.callback(response);
+           if(ret === false){
+               return
+           }
+           delete renzhenmingjs.callbacks[callbackname];
+       }
+   }
+}
+
 renzhenmingjs.takeNativeAction = function(commandname, parameters){
     console.log("renzhenmingjs takenativeaction")
     var request = {};

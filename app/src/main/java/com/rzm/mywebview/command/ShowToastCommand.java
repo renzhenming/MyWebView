@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.google.auto.service.AutoService;
 import com.rzm.base.BaseApplication;
+import com.rzm.webview.ICallbackFromMainprocessToWebViewProcessInterface;
 import com.rzm.webview.command.Command;
 
 import java.util.Map;
@@ -18,7 +19,7 @@ public class ShowToastCommand implements Command {
     }
 
     @Override
-    public void execute(Map parameters) {
+    public void execute(Map parameters, ICallbackFromMainprocessToWebViewProcessInterface callback) {
         new Handler(Looper.getMainLooper()).post(() -> {
             Toast.makeText(BaseApplication.mApplication, "弹出Toast", Toast.LENGTH_SHORT).show();
         });

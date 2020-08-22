@@ -1,6 +1,9 @@
 package com.rzm.webview.mainprocess;
+import android.os.RemoteException;
+
 import com.google.gson.Gson;
 import com.rzm.utils.LogUtils;
+import com.rzm.webview.ICallbackFromMainprocessToWebViewProcessInterface;
 import com.rzm.webview.IWebViewProcessToMainProcessAidlInterface;
 import com.rzm.webview.command.Command;
 import java.util.HashMap;
@@ -32,13 +35,13 @@ public class MainProcessCommandsManager extends IWebViewProcessToMainProcessAidl
         }
     }
 
-    public void executeCommand(String commandName, Map params) {
-        mCommands.get(commandName).execute(params);
+    public void executeCommand(String commandName, Map params, ICallbackFromMainprocessToWebViewProcessInterface callback) {
+        mCommands.get(commandName).execute(params,callback);
     }
 
     @Override
-    public void handleWebCommand(String commandName, String jsonParams) {
+    public void handleWebCommand(String commandName, String jsonParams, ICallbackFromMainprocessToWebViewProcessInterface callback) throws RemoteException {
         LogUtils.d("MainProcessCommandsManager handleWebCommand commandName = " + commandName);
-        executeCommand(commandName, new Gson().fromJson(jsonParams, Map.class));
+        executeCommand(commandName, new Gson().fromJson(jsonParams, Map.class),callback);
     }
 }

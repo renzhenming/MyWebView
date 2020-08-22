@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.google.auto.service.AutoService;
 import com.rzm.base.BaseApplication;
 import com.rzm.utils.LogUtils;
+import com.rzm.webview.ICallbackFromMainprocessToWebViewProcessInterface;
 import com.rzm.webview.command.Command;
 
 import java.util.Map;
@@ -19,7 +20,7 @@ public class OpenPageCommand implements Command {
     }
 
     @Override
-    public void execute(Map parameters) {
+    public void execute(Map parameters, ICallbackFromMainprocessToWebViewProcessInterface callback) {
         LogUtils.d("OpenPageCommand execute = " + parameters.size());
         String targetClass = String.valueOf(parameters.get("target_class"));
         if (!TextUtils.isEmpty(targetClass)) {

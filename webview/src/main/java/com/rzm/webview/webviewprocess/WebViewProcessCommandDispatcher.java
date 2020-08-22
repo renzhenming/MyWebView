@@ -9,6 +9,7 @@ import android.os.RemoteException;
 
 import com.rzm.base.BaseApplication;
 import com.rzm.utils.LogUtils;
+import com.rzm.webview.ICallbackFromMainprocessToWebViewProcessInterface;
 import com.rzm.webview.IWebViewProcessToMainProcessAidlInterface;
 import com.rzm.webview.mainprocess.MainProcessCommandService;
 
@@ -57,12 +58,17 @@ public class WebViewProcessCommandDispatcher implements ServiceConnection {
      *
      * @param commandName
      * @param params
-     * @param baseWebView
+     * @param mWebView
      */
-    public void executeCommand(String commandName, String params, final MWebView baseWebView) {
+    public void executeCommand(String commandName, String params, final MWebView mWebView) {
         if (iWebviewProcessToMainProcessInterface != null) {
             try {
-                iWebviewProcessToMainProcessInterface.handleWebCommand(commandName, params);
+                iWebviewProcessToMainProcessInterface.handleWebCommand(commandName, params, new ICallbackFromMainprocessToWebViewProcessInterface.Stub() {
+                    @Override
+                    public void onResult(String callBackName, String response) {
+                        mWebView.handleCallback(callBackName, response);
+                    }
+                });
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

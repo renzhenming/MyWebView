@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
@@ -61,6 +62,16 @@ public class MWebView extends WebView {
                 LogUtils.d("MWebView WebViewProcessCommandDispatcher executeCommand " + jsParamObject.name);
                 WebViewProcessCommandDispatcher.getInstance().executeCommand(jsParamObject.name, new Gson().toJson(jsParamObject.param), this);
             }
+        }
+    }
+
+    public void handleCallback(String callBackName, String response) {
+        if (!TextUtils.isEmpty(callBackName) && !TextUtils.isEmpty(response)) {
+            post(() -> {
+                String jscode = "javascript:renzhenmingjs.callback('" + callBackName + "'," + response + ")";
+                LogUtils.d("handleCallback " + jscode);
+                evaluateJavascript(jscode, null);
+            });
         }
     }
 }
