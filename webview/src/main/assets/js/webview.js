@@ -42,7 +42,7 @@ renzhenmingjs.takeNativeActionWithCallback = function(commandname, parameters, c
     request.name = commandname;
     request.param = parameters;
     request.param.callbackname = callbackname;
-     console.log("takeNativeActionWithCallback = "+commandname);
+    console.log("takeNativeActionWithCallback = "+commandname);
     if(window.renzhenmingjs.os.isAndroid){
         window.renzhenmingwebview.takeNativeAction(JSON.stringify(request));
     } else {

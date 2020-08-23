@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.webkit.WebView;
 
 import com.google.gson.Gson;
@@ -70,7 +71,14 @@ public class MWebView extends WebView {
             post(() -> {
                 String jscode = "javascript:renzhenmingjs.callback('" + callBackName + "'," + response + ")";
                 LogUtils.d("handleCallback " + jscode);
-                evaluateJavascript(jscode, null);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    evaluateJavascript(jscode, value -> {
+                        LogUtils.d("value " + value);
+                    });
+                }else{
+                    //这样调用,callJS就是方法名，javascript:是固定写法
+                    loadUrl(jscode);
+                }
             });
         }
     }

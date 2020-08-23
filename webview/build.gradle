@@ -34,9 +34,8 @@ android {
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:$rootProject.androidXVersion"
+    implementation rootProject.androidXVersion
     api project(':common')
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
     annotationProcessor rootProject.googleAutoServiceDependency
     implementation rootProject.googleAutoServiceDependency
 }

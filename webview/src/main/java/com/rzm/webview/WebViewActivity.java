@@ -3,6 +3,8 @@ package com.rzm.webview;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 
 import androidx.fragment.app.Fragment;
@@ -19,6 +21,14 @@ public class WebViewActivity extends AppCompatActivity
         implements WebViewFragment.OnFragmentInteractionListener {
 
     ActivityWebViewBinding mBinding;
+
+    public static Intent newIntent(Context context, String url, String title,boolean isShowActionBar) {
+        Intent intent = new Intent(context, WebViewActivity.class);
+        intent.putExtra(Constants.TITLE, title);
+        intent.putExtra(Constants.URL, url);
+        intent.putExtra(Constants.IS_SHOW_ACTION_BAR, isShowActionBar);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +51,6 @@ public class WebViewActivity extends AppCompatActivity
 
     @Override
     public void updateTitle(String title) {
-        mBinding.title.setText(title);
+        //mBinding.title.setText(title);
     }
 }

@@ -21,10 +21,9 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation rootProject.androidXVersion
     implementation project(":common")
-    implementation 'com.google.android.material:material:1.0.0'
-
+    implementation rootProject.material
     annotationProcessor rootProject.googleAutoServiceDependency
     implementation rootProject.googleAutoServiceDependency
 }

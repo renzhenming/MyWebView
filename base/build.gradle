@@ -26,9 +26,9 @@ android {
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:$rootProject.androidXVersion"
-    api 'com.kingja.loadsir:loadsir:1.3.8'
-    implementation 'com.airbnb.android:lottie:2.8.0'
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-7'
-    api 'com.google.code.gson:gson:2.8.2'
+    implementation rootProject.androidXVersion
+    api rootProject.loadsir
+    implementation rootProject.comAirbnbAndroidLottie
+    api rootProject.SmartRefreshLayout
+    api rootProject.gson
 }

@@ -19,6 +19,5 @@ public class MainActivity extends AppCompatActivity {
     public void openWebView(View view) {
         IWebViewService webViewService = CommonServiceLoader.load(IWebViewService.class);
         webViewService.startLocalHtml(MainActivity.this);
-        // webViewService.startWebViewActivity(this,"https://www.baidu.com","标题",true);
     }
 }
